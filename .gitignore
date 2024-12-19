@@ -1,4 +1,7 @@
 ##### Python.gitignore #####
+.vscode/
+.history/
+chiebot_test/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
