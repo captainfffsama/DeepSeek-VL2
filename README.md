@@ -68,6 +68,69 @@ Zhiyu Wu*, Xiaokang Chen*, Zizheng Pan*, Xingchao Liu*, Wen Liu**, Damai Dai, Hu
 
 ![](./images/vl2_teaser.jpeg)
 
+## Can use grpc now!!!
+Exist grpc is 1.68.1
+**For the server**
+server start:
+```bash
+cd grpc_server
+python main.py -c config_example.yaml
+```
+server config can be refer in `grpc_server/config_example.yaml`
+
+**For the client**
+Build `grpc_server/proto/vlm_chat.proto` to get `vlm_chat_pb2_grpc.py` and `vlm_chat_pb2.py`.
+There is a example of how to use grpc in client
+```python
+from typing import Union
+import base64
+import io
+
+import numpy as np
+from PIL import Image
+import grpc
+
+import vlm_chat_pb2_grpc, vlm_chat_pb2
+
+def img2base64(file: Union[str, np.ndarray]) -> bytes:
+    if isinstance(file, str):
+        img_file = open(file, "rb")
+        img_b64encode = base64.b64encode(img_file.read())
+        img_file.close()
+        return img_b64encode
+    elif isinstance(file, np.ndarray):
+        img = Image.fromarray(file)
+        buffered = io.BytesIO()
+        img.save(buffered, format=".jpg")
+        img_b64encode = base64.b64encode(buffered.getvalue())
+        buffered.close()
+        return img_b64encode
+    else:
+        return None
+
+img_path = (
+    "/home/chiebot-cv/project/hq_workspace/DeepSeek-VL2/images/visual_grounding.jpeg"
+)
+channel_opt = [
+    ("grpc.max_send_message_length", 512 * 1024 * 1024),
+    ("grpc.max_receive_message_length", 512 * 1024 * 1024),
+]
+# server host is 127.0.0.1:52007
+channel = grpc.insecure_channel("127.0.0.1:52007", options=channel_opt)
+stub = vlm_chat_pb2_grpc.VLMChatServiceStub(channel)
+prompt = "<image>\n<|ref|>Please describe this picture<|/ref|>."
+request = vlm_chat_pb2.ChatRequest()
+request.prompt_str = prompt
+request.imdata.append(img2base64(img_path))
+
+try:
+    response = stub.VLMOneChat(request)
+except grpc.RpcError as e:
+    raise e
+print(response.response_str)
+```
+
+
 ## 2. Release
 ✅ <b>2024-12-13</b>: DeepSeek-VL2 family released, including <code>DeepSeek-VL2-tiny</code>, <code>DeepSeek-VL2-small</code>, <code>DeepSeek-VL2</code>.
 
@@ -184,13 +247,13 @@ This code repository is licensed under [MIT License](./LICENSE-CODE). The use of
 
 ```
 @misc{wu2024deepseekvl2mixtureofexpertsvisionlanguagemodels,
-      title={DeepSeek-VL2: Mixture-of-Experts Vision-Language Models for Advanced Multimodal Understanding}, 
+      title={DeepSeek-VL2: Mixture-of-Experts Vision-Language Models for Advanced Multimodal Understanding},
       author={Zhiyu Wu and Xiaokang Chen and Zizheng Pan and Xingchao Liu and Wen Liu and Damai Dai and Huazuo Gao and Yiyang Ma and Chengyue Wu and Bingxuan Wang and Zhenda Xie and Yu Wu and Kai Hu and Jiawei Wang and Yaofeng Sun and Yukun Li and Yishi Piao and Kang Guan and Aixin Liu and Xin Xie and Yuxiang You and Kai Dong and Xingkai Yu and Haowei Zhang and Liang Zhao and Yisong Wang and Chong Ruan},
       year={2024},
       eprint={2412.10302},
       archivePrefix={arXiv},
       primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2412.10302}, 
+      url={https://arxiv.org/abs/2412.10302},
 }
 ```
 
