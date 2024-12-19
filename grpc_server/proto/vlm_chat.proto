@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package vlm_chat_service;
+
+service VLMChatService {
+  rpc VLMOneChat(ChatRequest) returns (ChatResponse) {} // 深度学习检测服务
+}
+
+message ChatRequest{
+  repeated bytes imdata = 1; // 图像二进制数据-base64编码
+  string prompt_str = 2;
+}
+message Box{
+  int32 xmin = 1;
+  int32 ymin = 2;
+  int32 xmax = 3;
+  int32 ymax = 4;
+}
+message ChatResponse {
+  string response_str = 1;
+}
+message Tensor {
+  repeated float data = 1;
+  repeated int32 shape = 2;
+}

@@ -1,0 +1,7 @@
+detector_params:
+  model_path: "/home/chiebot-cv/.cache/huggingface/hub/models--deepseek-ai--deepseek-vl2-tiny/snapshots/66c54660eae7e90c9ba259bfdf92d07d6e3ce8aa"
+  device: "cuda:2"
+grpc_args:
+  host: "0.0.0.0"
+  port: "52007"
+  max_workers: 1
