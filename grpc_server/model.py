@@ -12,6 +12,7 @@ from utils import load_image_from_base64, np2tensor_proto
 
 class DeepSeekVL2Grpc(vlm_chat_pb2_grpc.VLMChatServiceServicer):
     def __init__(self, model_path: str, device: str = "cuda"):
+        torch.cuda.set_device(device)
         self.vl_chat_processor: DeepseekVLV2Processor = (
             DeepseekVLV2Processor.from_pretrained(model_path, device=device)
         )
