@@ -9,6 +9,8 @@ service VLMChatService {
 message ChatRequest{
   repeated bytes imdata = 1; // 图像二进制数据-base64编码
   string prompt_str = 2;
+  bool use_custom_generate_params=3;
+  CustomGenerateParams custom_generate_params=4;
 }
 message Box{
   int32 xmin = 1;
@@ -18,6 +20,14 @@ message Box{
 }
 message ChatResponse {
   string response_str = 1;
+}
+message CustomGenerateParams{
+    bool do_sample =1;
+    bool use_cache =2;
+    float temperature=3;
+    float top_p=4;
+    float repetition_penalty=5;
+    int32 max_new_tokens =6;
 }
 message Tensor {
   repeated float data = 1;

@@ -122,6 +122,21 @@ prompt = "<image>\n<|ref|>Please describe this picture<|/ref|>."
 request = vlm_chat_pb2.ChatRequest()
 request.prompt_str = prompt
 request.imdata.append(img2base64(img_path))
+# NOTE: if you need change genenrate params,all params should set
+# default genetate params is:
+#            max_new_tokens=1024,
+#            do_sample=False,
+#            use_cache=True,
+#            temperature=1.0,
+#            top_p=0.9,
+#            repetition_penalty=1.1,
+#request.use_custom_generate_params=True
+#request.custom_generate_params.do_sample=True
+#request.custom_generate_params.use_cache=True
+#request.custom_generate_params.temperature=1
+#request.custom_generate_params.top_p=0.9
+#request.custom_generate_params.repetition_penalty=1.1
+#request.custom_generate_params.max_new_tokens=1024
 
 try:
     response = stub.VLMOneChat(request)

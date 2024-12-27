@@ -24,21 +24,23 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0evlm_chat.proto\x12\x10vlm_chat_service\"1\n\x0b\x43hatRequest\x12\x0e\n\x06imdata\x18\x01 \x03(\x0c\x12\x12\n\nprompt_str\x18\x02 \x01(\t\"=\n\x03\x42ox\x12\x0c\n\x04xmin\x18\x01 \x01(\x05\x12\x0c\n\x04ymin\x18\x02 \x01(\x05\x12\x0c\n\x04xmax\x18\x03 \x01(\x05\x12\x0c\n\x04ymax\x18\x04 \x01(\x05\"$\n\x0c\x43hatResponse\x12\x14\n\x0cresponse_str\x18\x01 \x01(\t\"%\n\x06Tensor\x12\x0c\n\x04\x64\x61ta\x18\x01 \x03(\x02\x12\r\n\x05shape\x18\x02 \x03(\x05\x32_\n\x0eVLMChatService\x12M\n\nVLMOneChat\x12\x1d.vlm_chat_service.ChatRequest\x1a\x1e.vlm_chat_service.ChatResponse\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0evlm_chat.proto\x12\x10vlm_chat_service\"\x9d\x01\n\x0b\x43hatRequest\x12\x0e\n\x06imdata\x18\x01 \x03(\x0c\x12\x12\n\nprompt_str\x18\x02 \x01(\t\x12\"\n\x1ause_custom_generate_params\x18\x03 \x01(\x08\x12\x46\n\x16\x63ustom_generate_params\x18\x04 \x01(\x0b\x32&.vlm_chat_service.CustomGenerateParams\"=\n\x03\x42ox\x12\x0c\n\x04xmin\x18\x01 \x01(\x05\x12\x0c\n\x04ymin\x18\x02 \x01(\x05\x12\x0c\n\x04xmax\x18\x03 \x01(\x05\x12\x0c\n\x04ymax\x18\x04 \x01(\x05\"$\n\x0c\x43hatResponse\x12\x14\n\x0cresponse_str\x18\x01 \x01(\t\"\x94\x01\n\x14\x43ustomGenerateParams\x12\x11\n\tdo_sample\x18\x01 \x01(\x08\x12\x11\n\tuse_cache\x18\x02 \x01(\x08\x12\x13\n\x0btemperature\x18\x03 \x01(\x02\x12\r\n\x05top_p\x18\x04 \x01(\x02\x12\x1a\n\x12repetition_penalty\x18\x05 \x01(\x02\x12\x16\n\x0emax_new_tokens\x18\x06 \x01(\x05\"%\n\x06Tensor\x12\x0c\n\x04\x64\x61ta\x18\x01 \x03(\x02\x12\r\n\x05shape\x18\x02 \x03(\x05\x32_\n\x0eVLMChatService\x12M\n\nVLMOneChat\x12\x1d.vlm_chat_service.ChatRequest\x1a\x1e.vlm_chat_service.ChatResponse\"\x00\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'vlm_chat_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_CHATREQUEST']._serialized_start=36
-  _globals['_CHATREQUEST']._serialized_end=85
-  _globals['_BOX']._serialized_start=87
-  _globals['_BOX']._serialized_end=148
-  _globals['_CHATRESPONSE']._serialized_start=150
-  _globals['_CHATRESPONSE']._serialized_end=186
-  _globals['_TENSOR']._serialized_start=188
-  _globals['_TENSOR']._serialized_end=225
-  _globals['_VLMCHATSERVICE']._serialized_start=227
-  _globals['_VLMCHATSERVICE']._serialized_end=322
+  _globals['_CHATREQUEST']._serialized_start=37
+  _globals['_CHATREQUEST']._serialized_end=194
+  _globals['_BOX']._serialized_start=196
+  _globals['_BOX']._serialized_end=257
+  _globals['_CHATRESPONSE']._serialized_start=259
+  _globals['_CHATRESPONSE']._serialized_end=295
+  _globals['_CUSTOMGENERATEPARAMS']._serialized_start=298
+  _globals['_CUSTOMGENERATEPARAMS']._serialized_end=446
+  _globals['_TENSOR']._serialized_start=448
+  _globals['_TENSOR']._serialized_end=485
+  _globals['_VLMCHATSERVICE']._serialized_start=487
+  _globals['_VLMCHATSERVICE']._serialized_end=582
 # @@protoc_insertion_point(module_scope)

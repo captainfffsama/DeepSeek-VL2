@@ -11,10 +11,20 @@ channel_opt = [
 ]
 channel = grpc.insecure_channel("127.0.0.1:52007", options=channel_opt)
 stub = vlm_chat_pb2_grpc.VLMChatServiceStub(channel)
-prompt = "<image>\n<|ref|>Please describe this picture<|/ref|>."
+prompt = "<|ref|>你好<|/ref|>."
 request = vlm_chat_pb2.ChatRequest()
 request.prompt_str = prompt
-request.imdata.append(img2base64(img_path))
+
+# NOTE: if you need change genenrate params,all params should set
+request.use_custom_generate_params=True
+request.custom_generate_params.do_sample=True
+request.custom_generate_params.use_cache=True
+request.custom_generate_params.temperature=1
+request.custom_generate_params.top_p=0.8
+request.custom_generate_params.repetition_penalty=1.1
+request.custom_generate_params.max_new_tokens=1024
+
+# request.imdata.append(img2base64(img_path))
 
 try:
     response = stub.VLMOneChat(request)
